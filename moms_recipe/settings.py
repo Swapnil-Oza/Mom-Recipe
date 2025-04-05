@@ -11,7 +11,13 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'unsafe-default-key')
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 ALLOWED_HOSTS = ['mom-recipe.onrender.com',
                  'localhost']
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET')
+}
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -21,6 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'recipes',  # Our recipe app
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
