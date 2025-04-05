@@ -1,0 +1,237 @@
+{% extends 'recipes/base.html' %}
+
+{% block title %}Mom's Recipe - Add Recipe{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 animate__animated animate__fadeIn">
+        <div class="card shadow">
+            <div class="card-header bg-white py-3">
+                <h2 class="card-title text-center mb-0" style="color: var(--primary-color);">
+                    <i class="fas fa-utensils me-2"></i>Add a New Recipe
+                </h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <p>Share your delicious recipe with our community!</p>
+                </div>
+                
+                <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                        <label for="{{ form.title.id_for_label }}" class="form-label">
+                            <i class="fas fa-heading me-2"></i>Recipe Title
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-heading"></i>
+                            </span>
+                            {{ form.title }}
+                        </div>
+                        {% if form.title.errors %}
+                            <div class="text-danger mt-2">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                {{ form.title.errors }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">Give your recipe a descriptive and appetizing title.</div>
+                    </div>
+                    
+                    <div class="mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                        <label for="{{ form.category.id_for_label }}" class="form-label">
+                            <i class="fas fa-tags me-2"></i>Category
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-tags"></i>
+                            </span>
+                            {{ form.category }}
+                        </div>
+                        {% if form.category.errors %}
+                            <div class="text-danger mt-2">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                {{ form.category.errors }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">Select the category that best fits your recipe.</div>
+                    </div>
+                    
+                    <div class="mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                        <label for="{{ form.ingredients.id_for_label }}" class="form-label">
+                            <i class="fas fa-list me-2"></i>Ingredients
+                        </label>
+                        {{ form.ingredients }}
+                        {% if form.ingredients.errors %}
+                            <div class="text-danger mt-2">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                {{ form.ingredients.errors }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">List each ingredient on a new line. Include quantities and measurements.</div>
+                    </div>
+                    
+                    <div class="mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                        <label for="{{ form.steps.id_for_label }}" class="form-label">
+                            <i class="fas fa-tasks me-2"></i>Preparation Steps
+                        </label>
+                        {{ form.steps }}
+                        {% if form.steps.errors %}
+                            <div class="text-danger mt-2">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                {{ form.steps.errors }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">Describe the preparation steps in detail. Number each step or put each step on a new line.</div>
+                    </div>
+                    
+                    <div class="mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.5s;">
+                        <label for="{{ form.photo.id_for_label }}" class="form-label">
+                            <i class="fas fa-camera me-2"></i>Recipe Photo
+                        </label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-camera"></i>
+                            </span>
+                            {{ form.photo }}
+                        </div>
+                        <div id="photo-preview" class="text-center d-none mb-3">
+                            <img src="/placeholder.svg" alt="Recipe Preview" class="img-fluid rounded" style="max-height: 300px;">
+                        </div>
+                        {% if form.photo.errors %}
+                            <div class="text-danger mt-2">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                {{ form.photo.errors }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">Upload a high-quality photo of your finished dish. This will help others visualize your recipe.</div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mt-5 animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-plus-circle me-2"></i>Add Recipe
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Image preview
+        const photoInput = document.getElementById('{{ form.photo.id_for_label }}');
+        const photoPreview = document.getElementById('photo-preview');
+        const previewImage = photoPreview.querySelector('img');
+        
+        photoInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    photoPreview.classList.remove('d-none');
+                    photoPreview.classList.add('animate__animated', 'animate__fadeIn');
+                }
+                
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        
+        // Form validation animation
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                const invalidInputs = form.querySelectorAll(':invalid');
+                invalidInputs.forEach(input => {
+                    input.classList.add('animate__animated', 'animate__headShake');
+                    input.addEventListener('animationend', () => {
+                        input.classList.remove('animate__animated', 'animate__headShake');
+                    });
+                });
+            }
+            
+            form.classList.add('was-validated');
+        });
+        
+        // Textarea auto-resize
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+            
+            // Initial height
+            textarea.style.height = (textarea.scrollHeight) + 'px';
+        });
+    });
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    input, select, textarea {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+        color: #212529;
+        background-color: #fff;
+        border-color: var(--primary-color);
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(255, 107, 107, 0.25);
+    }
+    
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    .input-group-text {
+        border-right: none;
+    }
+    
+    .input-group input, .input-group select {
+        border-left: none;
+    }
+    
+    /* Custom file input */
+    input[type="file"] {
+        padding: 0.375rem 0.75rem;
+    }
+    
+    input[type="file"]::file-selector-button {
+        padding: 0.375rem 0.75rem;
+        margin: -0.375rem -0.75rem;
+        margin-right: 0.75rem;
+        color: #212529;
+        background-color: #e9ecef;
+        pointer-events: none;
+        border-color: inherit;
+        border-style: solid;
+        border-width: 0;
+        border-right-width: 1px;
+        border-radius: 0;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+</style>
+{% endblock %}
+

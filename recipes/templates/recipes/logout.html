@@ -1,0 +1,74 @@
+{% extends 'recipes/base.html' %}
+
+{% block title %}Mom's Recipe - Logged Out{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 text-center animate__animated animate__fadeIn">
+        <div class="card shadow p-5">
+            <div class="mb-4">
+                <i class="fas fa-check-circle fa-5x" style="color: var(--primary-color);"></i>
+            </div>
+            <h2 class="mb-3">You have been logged out</h2>
+            <p class="lead mb-4">Thank you for visiting Mom's Recipe!</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'login' %}" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login Again
+                </a>
+                <a href="{% url 'home' %}" class="btn btn-secondary">
+                    <i class="fas fa-home me-2"></i>Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add a confetti effect
+    document.addEventListener('DOMContentLoaded', function() {
+        // Simple confetti effect
+        const colors = ['#ff6b6b', '#4ecdc4', '#ffd166', '#f8f9fa', '#2d3436'];
+        const confettiCount = 200;
+        
+        const confettiContainer = document.createElement('div');
+        confettiContainer.style.position = 'fixed';
+        confettiContainer.style.top = '0';
+        confettiContainer.style.left = '0';
+        confettiContainer.style.width = '100%';
+        confettiContainer.style.height = '100%';
+        confettiContainer.style.pointerEvents = 'none';
+        confettiContainer.style.zIndex = '9999';
+        document.body.appendChild(confettiContainer);
+        
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'absolute';
+            confetti.style.width = Math.random() * 10 + 5 + 'px';
+            confetti.style.height = Math.random() * 10 + 5 + 'px';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.borderRadius = '50%';
+            confetti.style.top = '-10px';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.opacity = Math.random() + 0.5;
+            confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+            confetti.style.transition = 'all ' + (Math.random() * 3 + 2) + 's linear';
+            
+            confettiContainer.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.style.top = '100%';
+                confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+            }, 100);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+        
+        setTimeout(() => {
+            confettiContainer.remove();
+        }, 5000);
+    });
+</script>
+{% endblock %}
+

@@ -1,0 +1,193 @@
+{% extends 'recipes/base.html' %}
+
+{% block title %}Mom's Recipe - Home{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <!-- Hero Section -->
+        <div class="text-center mb-5 animate__animated animate__fadeIn">
+            <h1 class="display-4 fw-bold mb-4">Welcome to <span style="color: var(--primary-color);">Mom's Recipe</span></h1>
+            <p class="lead mb-4">Discover and share your favorite family recipes with our community</p>
+            <div class="d-flex justify-content-center gap-3">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'add_recipe' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-plus-circle me-2"></i>Add Recipe
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login to Share
+                    </a>
+                {% endif %}
+                <a href="{% url 'search_recipes' %}" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-search me-2"></i>Find Recipes
+                </a>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="row mt-5 mb-5 g-4">
+            <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                <div class="text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-utensils fa-3x" style="color: var(--primary-color);"></i>
+                    </div>
+                    <h3>Share Recipes</h3>
+                    <p>Share your favorite family recipes with our community and preserve your culinary heritage.</p>
+                </div>
+            </div>
+            <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <div class="text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-search fa-3x" style="color: var(--primary-color);"></i>
+                    </div>
+                    <h3>Discover Dishes</h3>
+                    <p>Find new and exciting recipes from around the world to expand your culinary horizons.</p>
+                </div>
+            </div>
+            <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                <div class="text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-comments fa-3x" style="color: var(--primary-color);"></i>
+                    </div>
+                    <h3>Connect</h3>
+                    <p>Engage with other food enthusiasts, share tips, and discuss your cooking experiences.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Options -->
+        <div class="row mt-5 g-4">
+            <div class="col-md-6 animate__animated animate__fadeInLeft">
+                <div class="card h-100 recipe-card">
+                    <div class="card-body text-center p-5">
+                        <div class="mb-4">
+                            <i class="fas fa-book-open fa-4x mb-3" style="color: var(--primary-color);"></i>
+                            <h2 class="card-title mb-4">Add a Recipe</h2>
+                            <p class="card-text mb-4">Share your favorite family recipes with our community. Preserve your culinary heritage and let others enjoy your delicious creations.</p>
+                        </div>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'add_recipe' %}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-plus-circle me-2"></i>Add Recipe
+                            </a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-sign-in-alt me-2"></i>Login to Add Recipe
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 animate__animated animate__fadeInRight">
+                <div class="card h-100 recipe-card">
+                    <div class="card-body text-center p-5">
+                        <div class="mb-4">
+                            <i class="fas fa-search fa-4x mb-3" style="color: var(--secondary-color);"></i>
+                            <h2 class="card-title mb-4">Search Recipes</h2>
+                            <p class="card-text mb-4">Find delicious recipes from our collection. Search by title, ingredients, or category to discover your next favorite dish.</p>
+                        </div>
+                        <a href="{% url 'search_recipes' %}" class="btn btn-secondary btn-lg">
+                            <i class="fas fa-search me-2"></i>Search Recipes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="row justify-content-center mt-5 mb-4">
+    <div class="col-md-10">
+        <h2 class="text-center mb-4">What Our Users Say</h2>
+        <div class="row g-4">
+            <div class="col-md-4 animate__animated animate__fadeIn" style="animation-delay: 0.4s;">
+                <div class="card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-center mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text text-center">"I've found so many amazing recipes here! The community is so supportive and I love sharing my family's recipes."</p>
+                        <div class="text-center mt-3">
+                            <h5 class="mb-0">Sarah Johnson</h5>
+                            <small class="text-muted">Home Cook</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 animate__animated animate__fadeIn" style="animation-delay: 0.5s;">
+                <div class="card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-center mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text text-center">"Mom's Recipe has become my go-to place for finding new dishes to try. The interface is so easy to use!"</p>
+                        <div class="text-center mt-3">
+                            <h5 class="mb-0">Michael Chen</h5>
+                            <small class="text-muted">Food Enthusiast</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 animate__animated animate__fadeIn" style="animation-delay: 0.6s;">
+                <div class="card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-center mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="card-text text-center">"I love how I can preserve my grandmother's recipes here and share them with the world. Such a wonderful platform!"</p>
+                        <div class="text-center mt-3">
+                            <h5 class="mb-0">Emily Rodriguez</h5>
+                            <small class="text-muted">Culinary Student</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add scroll animations
+    document.addEventListener('DOMContentLoaded', function() {
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.animate__animated:not(.animate__animated--triggered)');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 50) {
+                    const animationClass = element.classList.contains('animate__fadeIn') ? 'animate__fadeIn' :
+                                          element.classList.contains('animate__fadeInUp') ? 'animate__fadeInUp' :
+                                          element.classList.contains('animate__fadeInLeft') ? 'animate__fadeInLeft' :
+                                          'animate__fadeInRight';
+                    
+                    element.classList.add(animationClass, 'animate__animated--triggered');
+                }
+            });
+        };
+        
+        // Initial check
+        animateOnScroll();
+        
+        // Check on scroll
+        window.addEventListener('scroll', animateOnScroll);
+    });
+</script>
+{% endblock %}
+

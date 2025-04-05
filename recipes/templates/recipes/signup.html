@@ -1,0 +1,216 @@
+{% extends 'recipes/base.html' %}
+
+{% block title %}Mom's Recipe - Sign Up{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 animate__animated animate__fadeInUp">
+        <div class="card shadow">
+            <div class="card-header bg-white py-3">
+                <h2 class="card-title text-center mb-0" style="color: var(--primary-color);">
+                    <i class="fas fa-user-plus me-2"></i>Create an Account
+                </h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <p>Join our community to share and discover amazing recipes!</p>
+                </div>
+                
+                <form method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.username.id_for_label }}" class="form-label">
+                            <i class="fas fa-user me-2"></i>Username
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            {{ form.username }}
+                        </div>
+                        {% if form.username.errors %}
+                            <div class="text-danger mt-2 animate__animated animate__headShake">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                {{ form.username.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.email.id_for_label }}" class="form-label">
+                            <i class="fas fa-envelope me-2"></i>Email
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            {{ form.email }}
+                        </div>
+                        {% if form.email.errors %}
+                            <div class="text-danger mt-2 animate__animated animate__headShake">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                {{ form.email.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.password1.id_for_label }}" class="form-label">
+                            <i class="fas fa-lock me-2"></i>Password
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            {{ form.password1 }}
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        {% if form.password1.errors %}
+                            <div class="text-danger mt-2 animate__animated animate__headShake">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                {{ form.password1.errors }}
+                            </div>
+                        {% else %}
+                            <div class="form-text mt-2">
+                                <ul class="mb-0 ps-3">
+                                    <li>Your password can't be too similar to your other personal information.</li>
+                                    <li>Your password must contain at least 8 characters.</li>
+                                    <li>Your password can't be a commonly used password.</li>
+                                    <li>Your password can't be entirely numeric.</li>
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.password2.id_for_label }}" class="form-label">
+                            <i class="fas fa-lock me-2"></i>Confirm Password
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            {{ form.password2 }}
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword2">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        {% if form.password2.errors %}
+                            <div class="text-danger mt-2 animate__animated animate__headShake">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                {{ form.password2.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-user-plus me-2"></i>Sign Up
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="text-center mt-4">
+                    <p>Already have an account? <a href="{% url 'login' %}" class="text-decoration-none fw-bold">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Toggle password visibility
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword1 = document.getElementById('togglePassword1');
+        const togglePassword2 = document.getElementById('togglePassword2');
+        const password1 = document.getElementById('{{ form.password1.id_for_label }}');
+        const password2 = document.getElementById('{{ form.password2.id_for_label }}');
+        
+        togglePassword1.addEventListener('click', function() {
+            const type = password1.getAttribute('type') === 'password' ? 'text' : 'password';
+            password1.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('fa-eye');
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+        
+        togglePassword2.addEventListener('click', function() {
+            const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+            password2.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('fa-eye');
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+        
+        // Form validation animation
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                const invalidInputs = form.querySelectorAll(':invalid');
+                invalidInputs.forEach(input => {
+                    input.classList.add('animate__animated', 'animate__headShake');
+                    input.addEventListener('animationend', () => {
+                        input.classList.remove('animate__animated', 'animate__headShake');
+                    });
+                });
+            }
+            
+            form.classList.add('was-validated');
+        });
+    });
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    input {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    
+    input:focus {
+        color: #212529;
+        background-color: #fff;
+        border-color: var(--primary-color);
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(255, 107, 107, 0.25);
+    }
+    
+    .input-group-text {
+        border-right: none;
+    }
+    
+    .input-group input {
+        border-left: none;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+</style>
+{% endblock %}
+
