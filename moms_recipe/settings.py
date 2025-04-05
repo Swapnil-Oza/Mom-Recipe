@@ -9,9 +9,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'unsafe-default-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False") == "True"
-ALLOWED_HOSTS = ['https://mom-recipe.onrender.com']
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://mom-recipe.onrender.com',
+                 'localhost']
 
 # Application definition
 INSTALLED_APPS = [
