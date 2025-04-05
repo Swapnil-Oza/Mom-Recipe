@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-
+from cloudinary.models import CloudinaryField
 class Recipe(models.Model):
     CATEGORY_CHOICES = [
         ('appetizer', 'Appetizer'),
@@ -18,7 +18,7 @@ class Recipe(models.Model):
     title = models.CharField(max_length=200)
     ingredients = models.TextField()
     steps = models.TextField()
-    photo = models.ImageField(upload_to='recipe_photos/')
+    photo = CloudinaryField(upload_to='recipe_photos/')
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
