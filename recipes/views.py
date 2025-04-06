@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.db.models import Q
 from .models import Recipe, Comment
 from .forms import UserRegisterForm, RecipeForm, CommentForm, SearchForm
@@ -132,3 +132,7 @@ def edit_recipe(request, pk):
     
     return render(request, 'recipes/edit_recipe.html', {'form': form, 'recipe': recipe})
 
+@login_required
+def logout_view(request):
+    logout(request)
+    return render(request, 'recipes/logout.html')
