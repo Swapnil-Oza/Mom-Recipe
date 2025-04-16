@@ -3,167 +3,296 @@
 {% block title %}Mom's Recipe - Home{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-10">
-        <!-- Hero Section -->
-        <div class="text-center mb-5 animate__animated animate__fadeIn">
-            <h1 class="display-4 fw-bold mb-4">Welcome to <span style="color: var(--primary-color);">Mom's Recipe</span></h1>
-            <p class="lead mb-4">Discover and share your favorite family recipes with our community</p>
-            <div class="d-flex justify-content-center gap-3">
+<!-- Hero Section with Gradient Background -->
+<div class="hero-section position-relative overflow-hidden mb-5 p-5 rounded-4 animate__animated animate__fadeIn">
+    <div class="row align-items-center">
+        <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-4 fw-bold mb-4 text-white">Discover & Share <span class="highlight">Family Recipes</span></h1>
+            <p class="lead mb-4 text-white opacity-90">Preserve your culinary heritage and explore delicious dishes from our community</p>
+            <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'add_recipe' %}" class="btn btn-primary btn-lg">
-                        <i class="fas fa-plus-circle me-2"></i>Add Recipe
+                    <a href="{% url 'add_recipe' %}" class="btn btn-light btn-lg shadow-sm">
+                        <i class="fas fa-plus-circle me-2"></i>Share Your Recipe
                     </a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
-                        <i class="fas fa-sign-in-alt me-2"></i>Login to Share
+                    <a href="{% url 'login' %}" class="btn btn-light btn-lg shadow-sm">
+                        <i class="fas fa-sign-in-alt me-2"></i>Join Our Community
                     </a>
                 {% endif %}
-                <a href="{% url 'search_recipes' %}" class="btn btn-secondary btn-lg">
-                    <i class="fas fa-search me-2"></i>Find Recipes
+                <a href="{% url 'search_recipes' %}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-search me-2"></i>Explore Recipes
                 </a>
             </div>
         </div>
-        
-        <!-- Features Section -->
-        <div class="row mt-5 mb-5 g-4">
-            <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
-                <div class="text-center p-4">
-                    <div class="feature-icon mb-3">
-                        <i class="fas fa-utensils fa-3x" style="color: var(--primary-color);"></i>
-                    </div>
-                    <h3>Share Recipes</h3>
-                    <p>Share your favorite family recipes with our community and preserve your culinary heritage.</p>
-                </div>
+        <div class="col-lg-5 d-none d-lg-block text-center">
+            <div class="hero-image-container mt-4 mt-lg-0">
+                <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1000&auto=format&fit=crop" alt="Cooking illustration" class="img-fluid rounded-4 shadow-lg hero-image">
             </div>
-            <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
-                <div class="text-center p-4">
-                    <div class="feature-icon mb-3">
-                        <i class="fas fa-search fa-3x" style="color: var(--primary-color);"></i>
-                    </div>
-                    <h3>Discover Dishes</h3>
-                    <p>Find new and exciting recipes from around the world to expand your culinary horizons.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section with Cards -->
+<div class="container mb-5">
+    <h2 class="text-center mb-4 fw-bold">Why Use Mom's Recipe?</h2>
+    <div class="row g-4">
+        <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+            <div class="feature-card h-100 p-4 rounded-4 shadow-sm border-0">
+                <div class="feature-icon-container mb-3 rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-book-open fa-2x"></i>
                 </div>
+                <h3 class="h4 mb-3">Preserve Traditions</h3>
+                <p class="text-muted mb-0">Save your family's culinary heritage for generations to come with our easy-to-use platform.</p>
             </div>
-            <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
-                <div class="text-center p-4">
-                    <div class="feature-icon mb-3">
-                        <i class="fas fa-comments fa-3x" style="color: var(--primary-color);"></i>
+        </div>
+        <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+            <div class="feature-card h-100 p-4 rounded-4 shadow-sm border-0">
+                <div class="feature-icon-container mb-3 rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-search fa-2x"></i>
+                </div>
+                <h3 class="h4 mb-3">Discover New Flavors</h3>
+                <p class="text-muted mb-0">Explore diverse recipes from around the world and expand your culinary horizons.</p>
+            </div>
+        </div>
+        <div class="col-md-4 animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+            <div class="feature-card h-100 p-4 rounded-4 shadow-sm border-0">
+                <div class="feature-icon-container mb-3 rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-users fa-2x"></i>
+                </div>
+                <h3 class="h4 mb-3">Join Our Community</h3>
+                <p class="text-muted mb-0">Connect with food enthusiasts, share cooking tips, and get inspired by others.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="container mb-5">
+    <div class="row g-4">
+        <div class="col-md-6 animate__animated animate__fadeInLeft">
+            <div class="cta-card h-100 rounded-4 shadow-sm border-0 position-relative overflow-hidden">
+                <div class="cta-content p-5 text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-utensils fa-3x mb-3 cta-icon"></i>
+                        <h2 class="card-title mb-3">Share Your Recipes</h2>
+                        <p class="card-text mb-4">Preserve your family's culinary traditions and share them with our growing community of food enthusiasts.</p>
                     </div>
-                    <h3>Connect</h3>
-                    <p>Engage with other food enthusiasts, share tips, and discuss your cooking experiences.</p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'add_recipe' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-plus-circle me-2"></i>Add Recipe
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login to Share
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        
-        <!-- Main Options -->
-        <div class="row mt-5 g-4">
-            <div class="col-md-6 animate__animated animate__fadeInLeft">
-                <div class="card h-100 recipe-card">
-                    <div class="card-body text-center p-5">
-                        <div class="mb-4">
-                            <i class="fas fa-book-open fa-4x mb-3" style="color: var(--primary-color);"></i>
-                            <h2 class="card-title mb-4">Add a Recipe</h2>
-                            <p class="card-text mb-4">Share your favorite family recipes with our community. Preserve your culinary heritage and let others enjoy your delicious creations.</p>
-                        </div>
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'add_recipe' %}" class="btn btn-primary btn-lg">
-                                <i class="fas fa-plus-circle me-2"></i>Add Recipe
-                            </a>
-                        {% else %}
-                            <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
-                                <i class="fas fa-sign-in-alt me-2"></i>Login to Add Recipe
-                            </a>
-                        {% endif %}
+        <div class="col-md-6 animate__animated animate__fadeInRight">
+            <div class="cta-card h-100 rounded-4 shadow-sm border-0 position-relative overflow-hidden">
+                <div class="cta-content p-5 text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-search fa-3x mb-3 cta-icon"></i>
+                        <h2 class="card-title mb-3">Find Inspiration</h2>
+                        <p class="card-text mb-4">Discover new recipes, cooking techniques, and meal ideas from our diverse collection of community recipes.</p>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6 animate__animated animate__fadeInRight">
-                <div class="card h-100 recipe-card">
-                    <div class="card-body text-center p-5">
-                        <div class="mb-4">
-                            <i class="fas fa-search fa-4x mb-3" style="color: var(--secondary-color);"></i>
-                            <h2 class="card-title mb-4">Search Recipes</h2>
-                            <p class="card-text mb-4">Find delicious recipes from our collection. Search by title, ingredients, or category to discover your next favorite dish.</p>
-                        </div>
-                        <a href="{% url 'search_recipes' %}" class="btn btn-secondary btn-lg">
-                            <i class="fas fa-search me-2"></i>Search Recipes
-                        </a>
-                    </div>
+                    <a href="{% url 'search_recipes' %}" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-search me-2"></i>Browse Recipes
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Testimonials Section -->
-<div class="row justify-content-center mt-5 mb-4">
-    <div class="col-md-10">
-        <h2 class="text-center mb-4">What Our Users Say</h2>
-        <div class="row g-4">
-            <div class="col-md-4 animate__animated animate__fadeIn" style="animation-delay: 0.4s;">
-                <div class="card h-100">
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-center mb-3">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                        </div>
-                        <p class="card-text text-center">"I've found so many amazing recipes here! The community is so supportive and I love sharing my family's recipes."</p>
-                        <div class="text-center mt-3">
-                            <h5 class="mb-0">Sarah Johnson</h5>
-                            <small class="text-muted">Home Cook</small>
-                        </div>
-                    </div>
-                </div>
+<!-- How It Works Section -->
+<div class="container mb-5">
+    <h2 class="text-center mb-5 fw-bold">How It Works</h2>
+    <div class="row g-4 align-items-center">
+        <div class="col-md-4 text-center animate__animated animate__fadeIn" style="animation-delay: 0.1s;">
+            <div class="step-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <span>1</span>
             </div>
-            <div class="col-md-4 animate__animated animate__fadeIn" style="animation-delay: 0.5s;">
-                <div class="card h-100">
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-center mb-3">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                        </div>
-                        <p class="card-text text-center">"Mom's Recipe has become my go-to place for finding new dishes to try. The interface is so easy to use!"</p>
-                        <div class="text-center mt-3">
-                            <h5 class="mb-0">Michael Chen</h5>
-                            <small class="text-muted">Food Enthusiast</small>
-                        </div>
-                    </div>
-                </div>
+            <h3 class="h4 mb-3">Create an Account</h3>
+            <p class="text-muted">Sign up for free and join our community of food enthusiasts.</p>
+        </div>
+        <div class="col-md-4 text-center animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
+            <div class="step-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <span>2</span>
             </div>
-            <div class="col-md-4 animate__animated animate__fadeIn" style="animation-delay: 0.6s;">
-                <div class="card h-100">
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-center mb-3">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                        </div>
-                        <p class="card-text text-center">"I love how I can preserve my grandmother's recipes here and share them with the world. Such a wonderful platform!"</p>
-                        <div class="text-center mt-3">
-                            <h5 class="mb-0">Emily Rodriguez</h5>
-                            <small class="text-muted">Culinary Student</small>
-                        </div>
-                    </div>
-                </div>
+            <h3 class="h4 mb-3">Share Your Recipes</h3>
+            <p class="text-muted">Upload your favorite recipes with ingredients, steps, and photos.</p>
+        </div>
+        <div class="col-md-4 text-center animate__animated animate__fadeIn" style="animation-delay: 0.3s;">
+            <div class="step-circle mx-auto mb-3 d-flex align-items-center justify-content-center">
+                <span>3</span>
             </div>
+            <h3 class="h4 mb-3">Discover & Connect</h3>
+            <p class="text-muted">Explore recipes from others and engage with the community.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Final CTA Banner -->
+<div class="container mb-5">
+    <div class="final-cta p-5 rounded-4 text-center animate__animated animate__fadeIn">
+        <h2 class="text-white mb-4">Ready to Start Your Culinary Journey?</h2>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            {% if user.is_authenticated %}
+                <a href="{% url 'add_recipe' %}" class="btn btn-light btn-lg">
+                    <i class="fas fa-plus-circle me-2"></i>Add Your First Recipe
+                </a>
+            {% else %}
+                <a href="{% url 'register' %}" class="btn btn-light btn-lg">
+                    <i class="fas fa-user-plus me-2"></i>Sign Up Now
+                </a>
+            {% endif %}
+            <a href="{% url 'search_recipes' %}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-search me-2"></i>Browse Recipes
+            </a>
         </div>
     </div>
 </div>
 {% endblock %}
 
+{% block extra_css %}
+<style>
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #e67e22 100%);
+        padding: 4rem 0;
+    }
+    
+    .highlight {
+        color: #ffd166;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .highlight::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 6px;
+        background-color: rgba(255, 209, 102, 0.3);
+        bottom: 5px;
+        left: 0;
+        z-index: -1;
+        border-radius: 3px;
+    }
+    
+    .hero-image {
+        transform: perspective(1000px) rotateY(-5deg);
+        transition: transform 0.5s ease;
+        max-height: 400px;
+        object-fit: cover;
+    }
+    
+    .hero-image:hover {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+    
+    .opacity-90 {
+        opacity: 0.9;
+    }
+    
+    /* Feature Cards */
+    .feature-card {
+        background-color: white;
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    }
+    
+    .feature-icon-container {
+        width: 70px;
+        height: 70px;
+        background-color: rgba(231, 76, 60, 0.1);
+        color: var(--primary-color);
+    }
+    
+    /* CTA Cards */
+    .cta-card {
+        background-color: white;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .cta-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    }
+    
+    .cta-card::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: rgba(231, 76, 60, 0.05);
+        z-index: 0;
+    }
+    
+    .cta-card::after {
+        content: '';
+        position: absolute;
+        bottom: -50px;
+        left: -50px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: rgba(231, 76, 60, 0.05);
+        z-index: 0;
+    }
+    
+    .cta-content {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .cta-icon {
+        color: var(--primary-color);
+    }
+    
+    /* Steps */
+    .step-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    
+    /* Final CTA */
+    .final-cta {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #e67e22 100%);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 3rem 0;
+        }
+        
+        .hero-image-container {
+            margin-top: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block extra_js %}
 <script>
-    // Add scroll animations
     document.addEventListener('DOMContentLoaded', function() {
+        // Animate elements on scroll
         const animateOnScroll = function() {
             const elements = document.querySelectorAll('.animate__animated:not(.animate__animated--triggered)');
             
@@ -190,4 +319,3 @@
     });
 </script>
 {% endblock %}
-

@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         :root {
-            --primary-color: #ff6b6b;
-            --secondary-color: #4ecdc4;
-            --accent-color: #ffd166;
-            --dark-color: #2d3436;
+            --primary-color: #e74c3c;
+            --secondary-color: #2ecc71;
+            --accent-color: #f39c12;
+            --dark-color: #34495e;
             --light-color: #f8f9fa;
-            --font-family: 'Poppins', sans-serif;
+            --font-family: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
         
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         body {
             font-family: var(--font-family);
@@ -25,8 +25,9 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background-color: #f9f7f7;
+            background-color: #f9f9f9;
             color: #333;
+            line-height: 1.6;
         }
         
         .content {
@@ -35,7 +36,7 @@
         
         /* Navbar styling */
         .navbar {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             background-color: white !important;
             transition: all 0.3s ease;
         }
@@ -101,7 +102,7 @@
         /* Button styling */
         .btn {
             border-radius: 50px;
-            padding: 8px 20px;
+            padding: 10px 24px;
             font-weight: 500;
             transition: all 0.3s ease;
             text-transform: uppercase;
@@ -115,10 +116,10 @@
         }
         
         .btn-primary:hover {
-            background-color: #ff5252;
-            border-color: #ff5252;
+            background-color: #c0392b;
+            border-color: #c0392b;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
         }
         
         .btn-secondary {
@@ -127,10 +128,10 @@
         }
         
         .btn-secondary:hover {
-            background-color: #3dbeb6;
-            border-color: #3dbeb6;
+            background-color: #27ae60;
+            border-color: #27ae60;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
         }
         
         /* Recipe card styling */
@@ -184,7 +185,7 @@
         
         input:focus, select:focus, textarea:focus {
             border-color: var(--primary-color) !important;
-            box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25) !important;
+            box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25) !important;
             background-color: white !important;
         }
         
@@ -270,7 +271,34 @@
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: #ff5252;
+            background: #c0392b;
+        }
+        
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        /* Focus styles for accessibility */
+        a:focus, button:focus, input:focus, select:focus, textarea:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        /* Container padding for mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
         }
     </style>
     {% block extra_css %}{% endblock %}
@@ -282,7 +310,7 @@
             <a class="navbar-brand" href="{% url 'home' %}">
                 <i class="fas fa-utensils me-2"></i>Mom's Recipe
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -308,10 +336,10 @@
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user-circle me-1"></i> {{ user.username }}
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li><a class="dropdown-item" href="{% url 'logout' %}">
                                 <i class="fas fa-sign-out-alt me-1"></i> Logout
                             </a></li>
@@ -341,7 +369,7 @@
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }} alert-dismissible fade show animate__animated animate__fadeInDown">
                         {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 {% endfor %}
             </div>
@@ -368,37 +396,81 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h5 class="mb-3">Mom's Recipe</h5>
-                    <p class="mb-0">Sharing delicious family recipes since 2023.</p>
-                </div>
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h5 class="mb-3">Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'home' %}" class="text-decoration-none">Home</a></li>
-                        <li><a href="{% url 'search_recipes' %}" class="text-decoration-none">Search Recipes</a></li>
-                        {% if user.is_authenticated %}
-                        <li><a href="{% url 'add_recipe' %}" class="text-decoration-none">Add Recipe</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5 class="mb-3">Connect With Us</h5>
-                    <div class="social-icons">
-                        <a href="#" class="text-decoration-none mx-1"><i class="fab fa-facebook fa-lg"></i></a>
-                        <a href="#" class="text-decoration-none mx-1"><i class="fab fa-instagram fa-lg"></i></a>
-                        <a href="#" class="text-decoration-none mx-1"><i class="fab fa-pinterest fa-lg"></i></a>
-                        <a href="#" class="text-decoration-none mx-1"><i class="fab fa-youtube fa-lg"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <p class="mb-0">&copy; 2023 Mom's Recipe. All rights reserved.</p>
+    <footer class="text-center bg-body-tertiary">
+        <!-- Grid container -->
+        <div class="container pt-4">
+          <!-- Section: Social media -->
+          <section class="mb-4">
+            <!-- Facebook -->
+            <a
+              data-mdb-ripple-init
+              class="btn btn-link btn-floating btn-lg text-body m-1"
+              href="https://www.facebook.com/profile.php?id=100069574161496"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+      
+            <!-- Twitter -->
+            <a
+              data-mdb-ripple-init
+              class="btn btn-link btn-floating btn-lg text-body m-1"
+              href="https://x.com/oza_swapnil"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-twitter"></i
+            ></a>
+      
+            <!-- Google -->
+            <a
+              data-mdb-ripple-init
+              class="btn btn-link btn-floating btn-lg text-body m-1"
+              href="mailto:swapniloza8@gmail.com"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-google"></i
+            ></a>
+      
+            <!-- Instagram -->
+            <a
+              data-mdb-ripple-init
+              class="btn btn-link btn-floating btn-lg text-body m-1"
+              href="https://www.instagram.com/swapnil_oza/"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-instagram"></i
+            ></a>
+      
+            <!-- Linkedin -->
+            <a
+              data-mdb-ripple-init
+              class="btn btn-link btn-floating btn-lg text-body m-1"
+              href="linkedin.com/in/swapnil-oza-5295b4235/"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <!-- Github -->
+            <a
+              data-mdb-ripple-init
+              class="btn btn-link btn-floating btn-lg text-body m-1"
+              href="https://github.com/Swapnil-Oza"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-github"></i
+            ></a>
+          </section>
+          <!-- Section: Social media -->
         </div>
-    </footer>
+        <!-- Grid container -->
+      
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+          © 2025 Copyright:
+          <a class="text-body">Swapnil Oza</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -434,4 +506,3 @@
     {% block extra_js %}{% endblock %}
 </body>
 </html>
-
